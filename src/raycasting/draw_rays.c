@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:51:13 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 19:04:10 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:19:35 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/cub.h"
+#include "../../inc/cub3d.h"
 
-void	draw_angle(t_all *all, t_vector v1, t_vector v2, t_vector sign_diff)
+void	draw_angle(t_info *info, t_vector v1, t_vector v2, t_vector sign_diff)
 {
 	int	dx;
 	int	dy;
@@ -23,7 +23,7 @@ void	draw_angle(t_all *all, t_vector v1, t_vector v2, t_vector sign_diff)
 	err = (dx - dy);
 	while (floor(v1.x) != floor(v2.x) || floor(v1.y) != floor(v2.y))
 	{
-		my_mlx_pixel_put(&(all->data), v1.x, v1.y, 0x00858B8C);
+		my_mlx_pixel_put(&(info->data), v1.x, v1.y, 0x00858B8C);
 		if (2 * err > -dy)
 		{
 			err -= dy;
@@ -37,7 +37,7 @@ void	draw_angle(t_all *all, t_vector v1, t_vector v2, t_vector sign_diff)
 	}
 }
 
-void	draw_line(t_all *all, t_vector start, t_vector direction)
+void	draw_line(t_info *info, t_vector start, t_vector direction)
 {
 	t_vector	sign_diff;
 
@@ -49,10 +49,10 @@ void	draw_line(t_all *all, t_vector start, t_vector direction)
 		sign_diff.y = 1;
 	else
 		sign_diff.y = -1;
-	draw_angle(all, start, direction, sign_diff);
+	draw_angle(info, start, direction, sign_diff);
 }
 
-void	draw_player(t_all *all, double angle, double pos, int radius)
+void	draw_player(t_info *info, double angle, double pos, int radius)
 {
 	t_vector	v1;
 	t_vector	v2;
@@ -68,9 +68,9 @@ void	draw_player(t_all *all, double angle, double pos, int radius)
 		v2.y = pos + i * sin(angle + 2 * PI / 3) / 2;
 		v3.x = pos + i * cos(angle + 4 * PI / 3) / 2;
 		v3.y = pos + i * sin(angle + 4 * PI / 3) / 2;
-		draw_line(all, v1, v2);
-		draw_line(all, v2, v3);
-		draw_line(all, v1, v3);
+		draw_line(info, v1, v2);
+		draw_line(info, v2, v3);
+		draw_line(info, v1, v3);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   typedef.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:12:47 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 16:52:49 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:05:52 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,27 @@
 # define WIDTH 1920
 # define PI 3.141592653589793
 
-#  define W_KEY 13
-#  define A_KEY 0
-#  define S_KEY 1
-#  define D_KEY 2
-#  define L_ARROW 123
-#  define R_ARROW 124
+# ifdef __APPLE__
+#  define FORWARD 13
+#  define LEFT 0
+#  define BACK 1
+#  define RIGHT 2
+#  define VIEW_LEFT 123
+#  define VIEW_RIGHT 124
 #  define ESC_KEY 53
 #  define SPACE_KEY 49
+# else
+#  define FORWARD 119
+#  define LEFT 97
+#  define BACK 115
+#  define RIGHT 100
+#  define VIEW_LEFT 65361
+#  define VIEW_RIGHT 65363
+#  define ESC_KEY 65307
+#  define SPACE_KEY 32
+
+
+#endif
 
 
 typedef struct s_vector
@@ -47,7 +60,7 @@ typedef struct s_data
 	int		pix_wight;
 }				t_data;
 
-typedef struct pars
+typedef struct s_pars
 {
 	char		*north_wall;
 	char		*south_wall;
@@ -91,7 +104,7 @@ typedef struct s_ray
 	int			draw_start_tmp;
 }				t_ray;
 
-typedef struct all
+typedef struct s_info
 {
 	t_data		data;
 	t_ray		ray;		
@@ -100,6 +113,6 @@ typedef struct all
 	void		*mlx_win;
 	int			mouse_pos;
 	int			keys[6];
-}	t_all;
+}	t_info;
 
 #endif

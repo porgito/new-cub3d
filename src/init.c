@@ -3,93 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:15:26 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 16:29:12 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:16:50 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/cub.h"
+#include "../inc/cub3d.h"
 
-void	init_mallocs_to_null(t_all *all)
+void	init_mallocs_to_null(t_info *info)
 {
-	all->pars.map = NULL;
-	all->pars.north_wall = NULL;
-	all->pars.south_wall = NULL;
-	all->pars.west_wall = NULL;
-	all->pars.east_wall = NULL;
-	all->mlx = NULL;
-	all->mlx_win = NULL;
-	all->data.img = NULL;
-	all->data.addr = NULL;
-	all->ray.texture[0].img = NULL;
-	all->ray.texture[1].img = NULL;
-	all->ray.texture[2].img = NULL;
-	all->ray.texture[3].img = NULL;
+	info->pars.map = NULL;
+	info->pars.north_wall = NULL;
+	info->pars.south_wall = NULL;
+	info->pars.west_wall = NULL;
+	info->pars.east_wall = NULL;
+	info->mlx = NULL;
+	info->mlx_win = NULL;
+	info->data.img = NULL;
+	info->data.addr = NULL;
+	info->ray.texture[0].img = NULL;
+	info->ray.texture[1].img = NULL;
+	info->ray.texture[2].img = NULL;
+	info->ray.texture[3].img = NULL;
 }
 
-void	init_cub(t_all *all, char *map)
+void	init_cub(t_info *info, char *map)
 {
-	init_mallocs_to_null(all);
-	parsing(all, map);
-	check_map(all);
-	all->mlx = mlx_init();
-	if (!all->mlx)
-		free_exit(all, 1, "Malloc Error\n");
-	init_textures(all);
-	all->mlx_win = mlx_new_window(all->mlx, WIDTH,
+	init_mallocs_to_null(info);
+	parsing(info, map);
+	check_map(info);
+	info->mlx = mlx_init();
+	if (!info->mlx)
+		free_exit(info, 1, "Malloc Error\n");
+	init_textures(info);
+	info->mlx_win = mlx_new_window(info->mlx, WIDTH,
 			HEIGHT, "cub3D");
-	if (!all->mlx_win)
-		free_exit(all, 1, "Malloc Error\n");
-	all->data.img = mlx_new_image(all->mlx, WIDTH, HEIGHT);
-	if (!all->data.img)
-		free_exit(all, 1, "Malloc Error\n");
-	all->data.addr = mlx_get_data_addr(all->data.img, \
-		&all->data.bits_per_pixel, &all->data.line_length, &all->data.endian);
-	all->data.addr2 = (int *)mlx_get_data_addr(all->data.img, \
-		&all->data.bits_per_pixel, &all->data.line_length, &all->data.endian);
-	if (!all->data.addr)
-		free_exit(all, 1, "Malloc Error\n");
+	if (!info->mlx_win)
+		free_exit(info, 1, "Malloc Error\n");
+	info->data.img = mlx_new_image(info->mlx, WIDTH, HEIGHT);
+	if (!info->data.img)
+		free_exit(info, 1, "Malloc Error\n");
+	info->data.addr = mlx_get_data_addr(info->data.img, \
+		&info->data.bits_per_pixel, &info->data.line_length, &info->data.endian);
+	info->data.addr2 = (int *)mlx_get_data_addr(info->data.img, \
+		&info->data.bits_per_pixel, &info->data.line_length, &info->data.endian);
+	if (!info->data.addr)
+		free_exit(info, 1, "Malloc Error\n");
 }
 
-void	init_angle(t_all *all)
+void	init_angle(t_info *info)
 {
 	int	x;
 	int	y;
 
-	x = all->ray.p_pos.x;
-	y = all->ray.p_pos.y;
-	if (all->pars.map[y][x] == 'N')
-		all->ray.angle = -PI / 2;
-	if (all->pars.map[y][x] == 'S')
-		all->ray.angle = PI / 2;
-	if (all->pars.map[y][x] == 'E')
-		all->ray.angle = 0;
-	if (all->pars.map[y][x] == 'W')
-		all->ray.angle = 1;
-	all->ray.delta_pos.x = cos(all->ray.angle);
-	all->ray.delta_pos.y = sin(all->ray.angle);
+	x = info->ray.p_pos.x;
+	y = info->ray.p_pos.y;
+	if (info->pars.map[y][x] == 'N')
+		info->ray.angle = -PI / 2;
+	if (info->pars.map[y][x] == 'S')
+		info->ray.angle = PI / 2;
+	if (info->pars.map[y][x] == 'E')
+		info->ray.angle = 0;
+	if (info->pars.map[y][x] == 'W')
+		info->ray.angle = 1;
+	info->ray.delta_pos.x = cos(info->ray.angle);
+	info->ray.delta_pos.y = sin(info->ray.angle);
 }
 
-void	init_ray(t_all *all)
+void	init_ray(t_info *info)
 {
-	// mlx_mouse_hide(all->mlx, all->mlx_win);
-	all->mouse_pos = WIDTH / 2;
-	set_player_position(all);
-	all->keys[0] = 1;
-	all->keys[1] = 1;
-	all->keys[2] = 1;
-	all->keys[3] = 1;
-	all->keys[4] = 1;
-	all->keys[5] = 1;
-	init_angle(all);
-	all->ray.dir_perp.x = sin(all->ray.angle + PI / 2);
-	all->ray.dir_perp.y = cos(all->ray.angle + PI / 2);
-	all->ray.time = 0;
-	all->ray.camera_orientation = 0;
-	all->ray.raydir.x = 0;
-	all->ray.raydir.y = 0;
-	all->ray.map_x = 0;
-	all->ray.in_wall = 0;
+	// mlx_mouse_hide(info->mlx, info->mlx_win);
+	info->mouse_pos = WIDTH / 2;
+	set_player_position(info);
+	info->keys[0] = 1;
+	info->keys[1] = 1;
+	info->keys[2] = 1;
+	info->keys[3] = 1;
+	info->keys[4] = 1;
+	info->keys[5] = 1;
+	init_angle(info);
+	info->ray.dir_perp.x = sin(info->ray.angle + PI / 2);
+	info->ray.dir_perp.y = cos(info->ray.angle + PI / 2);
+	info->ray.time = 0;
+	info->ray.camera_orientation = 0;
+	info->ray.raydir.x = 0;
+	info->ray.raydir.y = 0;
+	info->ray.map_x = 0;
+	info->ray.in_wall = 0;
 }

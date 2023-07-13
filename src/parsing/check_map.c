@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 13:18:09 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 15:50:00 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:16:21 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/cub.h"
+#include "../../inc/cub3d.h"
 
 int	check_open_map(char **map, int i, int j)
 {
@@ -35,7 +35,7 @@ int	check_open_map(char **map, int i, int j)
 	return (0);
 }
 
-int	check_map_caracters(char **map)
+int	check_map_characters(char **map)
 {
 	int	i;
 	int	j;
@@ -56,42 +56,42 @@ int	check_map_caracters(char **map)
 	return (0);
 }
 
-int	check_multiple_player(char **map)
+int	check_spawn(char **map)
 {
 	int	i;
 	int	j;
-	int	nb_player;
+	int	nb_spawn;
 
 	i = 0;
 	j = 0;
-	nb_player = 0;
+	nb_spawn = 0;
 	while (map[j])
 	{
 		while (map[j][i])
 		{
 			if (ft_strchr("NSEW", map[j][i]))
-				nb_player++;
+				nb_spawn++;
 			i++;
 		}
 		i = 0;
 		j++;
 	}
-	return (nb_player);
+	return (nb_spawn);
 }
 
-void	check_map(t_all *all)
+void	check_map(t_info *info)
 {
 	int	res;
-	int	nb_player;
+	int	nb_spawn;
 
-	nb_player = check_multiple_player(all->pars.map);
-	if (nb_player > 1)
-		free_exit(all, 1, "Error\nMap - Multiple players\n");
-	if (nb_player < 1)
-		free_exit(all, 1, "Error\nMap - No player\n");
-	res = check_map_caracters(all->pars.map);
+	nb_spawn = check_spawn(info->pars.map);
+	if (nb_spawn > 1)
+		free_exit(info, 1, "Error\nMap - Multiple spawns\n");
+	if (nb_spawn < 1)
+		free_exit(info, 1, "Error\nMap - No spawn\n");
+	res = check_map_characters(info->pars.map);
 	if (res == 1)
-		free_exit(all, 1, "Error\nMap - Invalid caracter\n");
+		free_exit(info, 1, "Error\nMap - Invalid character\n");
 	if (res == 2)
-		free_exit(all, 1, "Error\nMap - Invalid map\n");
+		free_exit(info, 1, "Error\nMap - Invalid map\n");
 }

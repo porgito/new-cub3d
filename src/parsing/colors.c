@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 11:38:14 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 15:50:00 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:19:35 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/cub.h"
+#include "../../inc/cub3d.h"
 
 int	create_trgb(int t, int r, int g, int b)
 {
@@ -32,7 +32,7 @@ int	get_b(int trgb)
 	return (trgb & 0xFF);
 }
 
-int	parse_color(t_all *all, t_list *lst, char *key)
+int	parse_color(t_info *info, t_list *lst, char *key)
 {
 	int		color;
 	int		nbr;
@@ -46,7 +46,7 @@ int	parse_color(t_all *all, t_list *lst, char *key)
 		return (free(temp_color), -1);
 	temp_split = ft_split(temp_color, ',');
 	if (!temp_split)
-		free_exit(all, 1, "Malloc Error\n");
+		free_exit(info, 1, "Malloc Error\n");
 	while (i < 3)
 	{
 		nbr = ft_atoi(temp_split[i]);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:23:35 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 15:50:00 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:12:23 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/cub.h"
+#include "../../inc/cub3d.h"
 
 char	*ft_strtrim_right(char const *s1, char const *set)
 {

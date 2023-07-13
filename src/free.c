@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:18:10 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 15:50:00 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:16:50 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/cub.h"
+#include "../inc/cub3d.h"
 
-void	free_xpm(t_all *all)
+void	free_xpm(t_info *info)
 {
-	if (all->ray.texture[0].img)
-		mlx_destroy_image(all->mlx, all->ray.texture[0].img);
-	if (all->ray.texture[1].img)
-		mlx_destroy_image(all->mlx, all->ray.texture[1].img);
-	if (all->ray.texture[2].img)
-		mlx_destroy_image(all->mlx, all->ray.texture[2].img);
-	if (all->ray.texture[3].img)
-		mlx_destroy_image(all->mlx, all->ray.texture[3].img);
+	if (info->ray.texture[0].img)
+		mlx_destroy_image(info->mlx, info->ray.texture[0].img);
+	if (info->ray.texture[1].img)
+		mlx_destroy_image(info->mlx, info->ray.texture[1].img);
+	if (info->ray.texture[2].img)
+		mlx_destroy_image(info->mlx, info->ray.texture[2].img);
+	if (info->ray.texture[3].img)
+		mlx_destroy_image(info->mlx, info->ray.texture[3].img);
 }
 
 void	free_lst(t_list *lst)
@@ -51,31 +51,31 @@ void	free_array(char **tab)
 	}
 }
 
-void	free_pars(t_all *all)
+void	free_pars(t_info *info)
 {
-	free_array(all->pars.map);
-	free(all->pars.north_wall);
-	free(all->pars.south_wall);
-	free(all->pars.east_wall);
-	free(all->pars.west_wall);
+	free_array(info->pars.map);
+	free(info->pars.north_wall);
+	free(info->pars.south_wall);
+	free(info->pars.east_wall);
+	free(info->pars.west_wall);
 }
 
-void	free_exit(t_all *all, int exit_code, char *error_message)
+void	free_exit(t_info *info, int exit_code, char *error_message)
 {
-	free_xpm(all);
-	if (all->data.img != NULL)
-		mlx_destroy_image(all->mlx, all->data.img);
-	if (all->mlx_win)
+	free_xpm(info);
+	if (info->data.img != NULL)
+		mlx_destroy_image(info->mlx, info->data.img);
+	if (info->mlx_win)
 	{
-		mlx_clear_window(all->mlx, all->mlx_win);
-		mlx_destroy_window(all->mlx, all->mlx_win);
+		mlx_clear_window(info->mlx, info->mlx_win);
+		mlx_destroy_window(info->mlx, info->mlx_win);
 	}
-	if (all->mlx)
+	if (info->mlx)
 	{
-		// mlx_destroy_display(all->mlx);
-		free(all->mlx);
+		// mlx_destroy_display(info->mlx);
+		free(info->mlx);
 	}
-	free_pars(all);
+	free_pars(info);
 	if (exit_code != 0)
 		ft_putstr_fd(error_message, 2);
 	exit(exit_code);

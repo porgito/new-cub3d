@@ -3,130 +3,130 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:04:43 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/12 19:06:45 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:31:31 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/cub.h"
+#include "../../inc/cub3d.h"
 
-void	init_raycasting(int i, t_all *all)
+void	init_raycasting(int i, t_info *info)
 {
-	all->ray.camera_orientation = 2 * i / (double)WIDTH - 1;
-	all->ray.raydir.x = all->ray.delta_pos.y
-		+ all->ray.dir_perp.x * all->ray.camera_orientation;
-	all->ray.raydir.y = all->ray.delta_pos.x
-		+ all->ray.dir_perp.y * all->ray.camera_orientation;
-	all->ray.map_x = (int)all->ray.pos.x;
-	all->ray.map_y = (int)all->ray.pos.y;
-	all->ray.deltadist.x = sqrt(1
-			+ (all->ray.raydir.y * all->ray.raydir.y)
-			/ (all->ray.raydir.x * all->ray.raydir.x));
-	all->ray.deltadist.y = sqrt(1
-			+ (all->ray.raydir.x * all->ray.raydir.x)
-			/ (all->ray.raydir.y * all->ray.raydir.y));
-	all->ray.in_wall = 0;
+	info->ray.camera_orientation = 2 * i / (double)WIDTH - 1;
+	info->ray.raydir.x = info->ray.delta_pos.y
+		+ info->ray.dir_perp.x * info->ray.camera_orientation;
+	info->ray.raydir.y = info->ray.delta_pos.x
+		+ info->ray.dir_perp.y * info->ray.camera_orientation;
+	info->ray.map_x = (int)info->ray.pos.x;
+	info->ray.map_y = (int)info->ray.pos.y;
+	info->ray.deltadist.x = sqrt(1
+			+ (info->ray.raydir.y * info->ray.raydir.y)
+			/ (info->ray.raydir.x * info->ray.raydir.x));
+	info->ray.deltadist.y = sqrt(1
+			+ (info->ray.raydir.x * info->ray.raydir.x)
+			/ (info->ray.raydir.y * info->ray.raydir.y));
+	info->ray.in_wall = 0;
 }
 
-void	raydir_raycasting(t_all *all)
+void	raydir_raycasting(t_info *info)
 {
-	if (all->ray.raydir.x < 0)
+	if (info->ray.raydir.x < 0)
 	{
-		all->ray.step_x = -1;
-		all->ray.sidedist.x = (all->ray.pos.x
-				- all->ray.map_x) * all->ray.deltadist.x;
+		info->ray.step_x = -1;
+		info->ray.sidedist.x = (info->ray.pos.x
+				- info->ray.map_x) * info->ray.deltadist.x;
 	}
 	else
 	{
-		all->ray.step_x = 1;
-		all->ray.sidedist.x = (all->ray.map_x
-				+ 1.0 - all->ray.pos.x) * all->ray.deltadist.x;
+		info->ray.step_x = 1;
+		info->ray.sidedist.x = (info->ray.map_x
+				+ 1.0 - info->ray.pos.x) * info->ray.deltadist.x;
 	}
-	if (all->ray.raydir.y < 0)
+	if (info->ray.raydir.y < 0)
 	{
-		all->ray.step_y = -1;
-		all->ray.sidedist.y = (all->ray.pos.y
-				- all->ray.map_y) * all->ray.deltadist.y;
+		info->ray.step_y = -1;
+		info->ray.sidedist.y = (info->ray.pos.y
+				- info->ray.map_y) * info->ray.deltadist.y;
 	}
 	else
 	{
-		all->ray.step_y = 1;
-		all->ray.sidedist.y = (all->ray.map_y
-				+ 1.0 - all->ray.pos.y) * all->ray.deltadist.y;
+		info->ray.step_y = 1;
+		info->ray.sidedist.y = (info->ray.map_y
+				+ 1.0 - info->ray.pos.y) * info->ray.deltadist.y;
 	}
 }
 
-void	check_hit_wall(t_all *all)
+void	check_hit_wall(t_info *info)
 {
-	while (all->ray.in_wall == 0)
+	while (info->ray.in_wall == 0)
 	{
-		if (all->ray.sidedist.x < all->ray.sidedist.y)
+		if (info->ray.sidedist.x < info->ray.sidedist.y)
 		{
-			all->ray.sidedist.x += all->ray.deltadist.x;
-			all->ray.map_x += all->ray.step_x;
-			all->ray.is_side_wall = 0;
+			info->ray.sidedist.x += info->ray.deltadist.x;
+			info->ray.map_x += info->ray.step_x;
+			info->ray.is_side_wall = 0;
 		}
 		else
 		{
-			all->ray.sidedist.y += all->ray.deltadist.y;
-			all->ray.map_y += all->ray.step_y;
-			all->ray.is_side_wall = 1;
+			info->ray.sidedist.y += info->ray.deltadist.y;
+			info->ray.map_y += info->ray.step_y;
+			info->ray.is_side_wall = 1;
 		}
-		if (all->pars.map[all->ray.map_x][all->ray.map_y] == '1')
-			all->ray.in_wall = 1;
+		if (info->pars.map[info->ray.map_x][info->ray.map_y] == '1')
+			info->ray.in_wall = 1;
 	}
 }
 
-void	draw_wall(t_all *all, int i)
+void	draw_wall(t_info *info, int i)
 {
 	int	d;
 	int	color;
 
-	all->ray.draw_start = -all->ray.line_height / 2 + HEIGHT / 2;
-	if (all->ray.draw_start < 0)
-		all->ray.draw_start = 0;
-	all->ray.draw_end = all->ray.line_height / 2 + HEIGHT / 2;
-	if (all->ray.draw_end >= HEIGHT)
-		all->ray.draw_end = HEIGHT;
+	info->ray.draw_start = -info->ray.line_height / 2 + HEIGHT / 2;
+	if (info->ray.draw_start < 0)
+		info->ray.draw_start = 0;
+	info->ray.draw_end = info->ray.line_height / 2 + HEIGHT / 2;
+	if (info->ray.draw_end >= HEIGHT)
+		info->ray.draw_end = HEIGHT;
 	d = 0;
-	all->ray.draw_start_tmp = all->ray.draw_start;
+	info->ray.draw_start_tmp = info->ray.draw_start;
 	/////////////////////////////////////////plafond
-	while (all->ray.draw_start > d)
-		my_mlx_pixel_put(&(all->data), i, d++, all->pars.ceiling_color);
+	while (info->ray.draw_start > d)
+		my_mlx_pixel_put(&(info->data), i, d++, info->pars.ceiling_color);
 	color = 0x80808080;
-	if (all->ray.is_side_wall == 1)
+	if (info->ray.is_side_wall == 1)
 		color = 0x00A9A9A9;
-	while (all->ray.draw_start < all->ray.draw_end)
-		my_mlx_pixel_put(&(all->data), i, all->ray.draw_start++, color);
-	d = all->ray.draw_end;
+	while (info->ray.draw_start < info->ray.draw_end)
+		my_mlx_pixel_put(&(info->data), i, info->ray.draw_start++, color);
+	d = info->ray.draw_end;
 	while (d > 0 && d < HEIGHT)
-		my_mlx_pixel_put(&(all->data), i, d++, all->pars.floor_color);
+		my_mlx_pixel_put(&(info->data), i, d++, info->pars.floor_color);
 }
 
-int	raycasting(t_all *all)
+int	raycasting(t_info *info)
 {
 	int	i;
 
 	i = 0;
-	(void)all;
+	(void)info;
 	while (i < WIDTH)
 	{
-		init_raycasting(i, all);
-		raydir_raycasting(all);
-		check_hit_wall(all);
-		if (all->ray.is_side_wall == 0)
-			all->ray.cam_wall_dist = fabs((all->ray.map_x - all->ray.pos.x
-						+ (1 - all->ray.step_x) / 2) / all->ray.raydir.x);
+		init_raycasting(i, info);
+		raydir_raycasting(info);
+		check_hit_wall(info);
+		if (info->ray.is_side_wall == 0)
+			info->ray.cam_wall_dist = fabs((info->ray.map_x - info->ray.pos.x
+						+ (1 - info->ray.step_x) / 2) / info->ray.raydir.x);
 		else
-			all->ray.cam_wall_dist = fabs((all->ray.map_y - all->ray.pos.y
-						+ (1 - all->ray.step_y) / 2) / all->ray.raydir.y);
-		all->ray.line_height = (int)(HEIGHT / all->ray.cam_wall_dist);
-		draw_wall(all, i);
-		texture(all, i);
+			info->ray.cam_wall_dist = fabs((info->ray.map_y - info->ray.pos.y
+						+ (1 - info->ray.step_y) / 2) / info->ray.raydir.y);
+		info->ray.line_height = (int)(HEIGHT / info->ray.cam_wall_dist);
+		draw_wall(info, i);
+		texture(info, i);
 		i++;
 	}
-	mlx_put_image_to_window(all->mlx, all->mlx_win, all->data.img, 0, 0);
+	mlx_put_image_to_window(info->mlx, info->mlx_win, info->data.img, 0, 0);
 	return (0);
 }

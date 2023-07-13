@@ -1,12 +1,10 @@
-.PHONY:     			all $(NAME) mkbuild lib clean fclean re sanitize
-
 NAME					= cub3D
 
 BUILD_DIR				= build/
 
-HEADER_DIR				= header/
+HEADER_DIR				= inc/
 
-HEADER_FILES				= header/cub.h header/typedef.h
+HEADER_FILES				= inc/cub3d.h inc/typedef.h
 
 DIR						= src/
 
@@ -29,8 +27,15 @@ SANITIZE				= $(CFLAGS) -fsanitize=address
 
 RM 						= rm -rf
 
-MINILIB_DIR				= mlx/
-MINILIB_FLAGS			= -framework OpenGL -framework AppKit 
+OS := $(shell uname -s)
+
+ifeq ($(OS), Darwin)
+	MINILIB_DIR				= mlx/
+	MINILIB_FLAGS			= -framework OpenGL -framework AppKit
+else
+    MINILIB_DIR			= minilibx_linux/
+    MINILIB_FLAGS 		= -Lminilibx_linux -L/usr/lib -Iminilibx_linux -lXext -lX11 -lm -lz 
+endif
 
 MINILIB					= libmlx.a
 
@@ -67,3 +72,5 @@ fclean:					clean
 
 re:						fclean all
 						$(MAKE) all
+
+.PHONY:     			all $(NAME) mkbuild lib clean fclean re sanitize
