@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:22:40 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 23:55:00 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:26:55 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	texture(t_info *info, int x)
 		info->ray.tex_pos += info->ray.step_pixel;
 		if (y < HEIGHT && x < WIDTH)
 		{
-			info->data.addr2[y * info->data.line_length / 4 + x] = \
+			info->data.addr2[y * info->data.line_l / 4 + x] = \
 			info->ray.texture[info->ray.tex_nb].addr2[info->ray.tex_y \
 			* 4 / 4 * info->ray.tex_x];
 		}

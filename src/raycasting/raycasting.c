@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:04:43 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 23:31:31 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:36:12 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	draw_wall(t_info *info, int i)
 		info->ray.draw_end = HEIGHT;
 	d = 0;
 	info->ray.draw_start_tmp = info->ray.draw_start;
-	/////////////////////////////////////////plafond
 	while (info->ray.draw_start > d)
 		my_mlx_pixel_put(&(info->data), i, d++, info->pars.ceiling_color);
 	color = 0x80808080;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:15:26 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 22:16:50 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:26:55 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	init_cub(t_info *info, char *map)
 	if (!info->data.img)
 		free_exit(info, 1, "Malloc Error\n");
 	info->data.addr = mlx_get_data_addr(info->data.img, \
-		&info->data.bits_per_pixel, &info->data.line_length, &info->data.endian);
+		&info->data.bits_per_pixel, &info->data.line_l, \
+		&info->data.endian);
 	info->data.addr2 = (int *)mlx_get_data_addr(info->data.img, \
-		&info->data.bits_per_pixel, &info->data.line_length, &info->data.endian);
+		&info->data.bits_per_pixel, &info->data.line_l, \
+		&info->data.endian);
 	if (!info->data.addr)
 		free_exit(info, 1, "Malloc Error\n");
 }
@@ -74,7 +76,7 @@ void	init_angle(t_info *info)
 
 void	init_ray(t_info *info)
 {
-	// mlx_mouse_hide(info->mlx, info->mlx_win);
+	mlx_mouse_hide(info->mlx, info->mlx_win);
 	info->mouse_pos = WIDTH / 2;
 	set_player_position(info);
 	info->keys[0] = 1;

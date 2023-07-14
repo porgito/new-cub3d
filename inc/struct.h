@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   typedef.h                                          :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:12:47 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 22:05:52 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:22:38 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPEDEF_H
-# define TYPEDEF_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
 # define SIZE_MINIMAP 25
 # define RADIUS 5
@@ -38,9 +38,7 @@
 #  define ESC_KEY 65307
 #  define SPACE_KEY 32
 
-
-#endif
-
+# endif
 
 typedef struct s_vector
 {
@@ -54,7 +52,7 @@ typedef struct s_data
 	char	*addr;
 	int		*addr2;
 	int		bits_per_pixel;
-	int		line_length;
+	int		line_l;
 	int		endian;
 	int		pix_height;
 	int		pix_wight;

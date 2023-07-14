@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 14:18:10 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 22:16:50 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:24:45 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	free_xpm(t_info *info)
-{
-	if (info->ray.texture[0].img)
-		mlx_destroy_image(info->mlx, info->ray.texture[0].img);
-	if (info->ray.texture[1].img)
-		mlx_destroy_image(info->mlx, info->ray.texture[1].img);
-	if (info->ray.texture[2].img)
-		mlx_destroy_image(info->mlx, info->ray.texture[2].img);
-	if (info->ray.texture[3].img)
-		mlx_destroy_image(info->mlx, info->ray.texture[3].img);
-}
 
 void	free_lst(t_list *lst)
 {
@@ -62,7 +50,6 @@ void	free_pars(t_info *info)
 
 void	free_exit(t_info *info, int exit_code, char *error_message)
 {
-	free_xpm(info);
 	if (info->data.img != NULL)
 		mlx_destroy_image(info->mlx, info->data.img);
 	if (info->mlx_win)
@@ -71,10 +58,7 @@ void	free_exit(t_info *info, int exit_code, char *error_message)
 		mlx_destroy_window(info->mlx, info->mlx_win);
 	}
 	if (info->mlx)
-	{
-		// mlx_destroy_display(info->mlx);
 		free(info->mlx);
-	}
 	free_pars(info);
 	if (exit_code != 0)
 		ft_putstr_fd(error_message, 2);

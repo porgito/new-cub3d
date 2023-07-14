@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                              :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:54:53 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 22:10:03 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:22:56 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# include "typedef.h"
+# include "struct.h"
 
 void	init_cub(t_info *info, char *map);
 void	init_textures(t_info *info);

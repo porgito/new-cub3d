@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlaurent <jlaurent@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: jlaurent <jlaurent@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 13:54:47 by jlaurent          #+#    #+#             */
-/*   Updated: 2023/07/13 23:27:54 by jlaurent         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:30:55 by jlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,3 @@ void	ft_mlx(t_info *info)
 	mlx_loop_hook(info->mlx, refresh, info);
 	mlx_loop(info->mlx);
 }
-

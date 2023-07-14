@@ -4,7 +4,7 @@ BUILD_DIR				= build/
 
 HEADER_DIR				= inc/
 
-HEADER_FILES				= inc/cub3d.h inc/typedef.h
+HEADER_FILES				= inc/cub3d.h inc/struct.h
 
 DIR						= src/
 
@@ -23,7 +23,6 @@ LIB_DIR					= libft/
 
 CC						= cc
 CFLAGS					= -Wall -Wextra -Werror
-SANITIZE				= $(CFLAGS) -fsanitize=address
 
 RM 						= rm -rf
 
@@ -55,9 +54,6 @@ mkbuild:
 $(NAME): 				$(OBJECTS) $(LIB_DIR)$(LIBFT)
 						$(CC) $(OBJECTS) -o $(NAME) $(LIB_DIR)$(LIBFT) $(MINILIB_DIR)$(MINILIB) $(MINILIB_FLAGS)
 
-sanitize :				$(OBJECTS) $(LIB_DIR)$(LIBFT)
-						$(CC) $(SANITIZE) $(OBJECTS) -o $(NAME) $(LIB_DIR)$(LIBFT) $(MINILIB_DIR)$(MINILIB) $(MINILIB_FLAGS)
-
 lib:
 						@make -C $(LIB_DIR) --no-print-directory
 	
@@ -73,4 +69,4 @@ fclean:					clean
 re:						fclean all
 						$(MAKE) all
 
-.PHONY:     			all $(NAME) mkbuild lib clean fclean re sanitize
+.PHONY:     			all $(NAME) mkbuild lib clean fclean re
